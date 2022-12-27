@@ -16,18 +16,33 @@ This application was developed using **PHP**, **Laravel Framework** and a **MySQ
 - Composer 
 - MySQL Database
 
+## Installation
+```bash
+# Clone the repo
+$ git clone https://github.com/arraysArrais/VUTTR-bossabox-challenge.git
+
+# Change the working directory
+$ cd VUTTR-bossabox-challenge
+
+# Update composer packages and generate autoload:
+$ composer update
+$ composer install
+```
+
 ## Usage
-Run migrations to create all database structure needed by using the command below
+
 ```bash
- php artisan migrate
-```
-Then, populate database fields with factory/seeds:
-```bash
- php artisan db:seed
-```
-Finally, run the server application
-```bash
- php artisan serve
+# Use .env.example environment config
+$ mv .env.example .env
+
+# Run migrations to create all database structure needed
+$ php artisan migrate
+
+# Populate database fields with factory/seeds
+$ php artisan db:seed
+
+# Run the server application
+$ php artisan serve
 ```
 
 ## API Documentation
@@ -47,6 +62,8 @@ Finally, run the server application
 | Query Param| Type     | Description                              |
 | :----------| :--------| :----------------------------------------|
 | `tag`      | `string` | **Optional**. The tag name that you want to filter|
+
+
 
 ### Create a new tool
 
@@ -79,7 +96,10 @@ Finally, run the server application
 | `description`      | `string` | **Required**. Tool description|
 | `tags`      | `array(strings)` | **Required**. The tags for the tool record. All values inside the array must be strings|
 
+
+
 ### Update a new tool
+
 ```http
   PATCH /api/tools/{id}
 ```
