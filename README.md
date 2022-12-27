@@ -98,7 +98,7 @@ $ php artisan serve
 
 
 
-### Update a new tool
+### Update tool
 
 ```http
   PATCH /api/tools/{id}
@@ -107,6 +107,7 @@ $ php artisan serve
 | Route Param| Type     | Description                              |
 | :----------| :--------| :----------------------------------------|
 | `id`      | `number` | **Required**. The tool id that you want to update|
+
 
 #### Request body example:
 ```bash
@@ -125,7 +126,7 @@ $ php artisan serve
 | `tags`      | `array(strings)` | **Optional**. The tags for the tool record. All values inside the array must be strings|
 
 
-### Delete a new tool
+### Delete tool
 ```http
   DELETE /api/tools/{id}
 ```
