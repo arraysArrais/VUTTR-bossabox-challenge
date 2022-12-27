@@ -48,29 +48,29 @@ $ php artisan serve
 ## API Documentation
 
 ### List all tools
-
-```http
+```bash
   GET /api/tools
 ```
-
-#### Filter tools by tag
-
-```http
+   
+   
+   
+### Filter tools by tag
+```bash
   GET /api/tools?tag={tag}
 ```
 
 | Query Param| Type     | Description                              |
 | :----------| :--------| :----------------------------------------|
 | `tag`      | `string` | **Optional**. The tag name that you want to filter|
-
-
-
+   
+    
+    
 ### Create a new tool
 
-```http
+```bash
   POST /api/tools
 ```
-
+   
 #### Required request headers:
 ```bash
 {
@@ -78,7 +78,7 @@ $ php artisan serve
     'Content-Type': 'application/json'
 }
 ```
-
+   
 #### Request body example:
 ```bash
 {
@@ -88,27 +88,27 @@ $ php artisan serve
         "tags": ["Tag 1", "Tag 2", "Tag 3"]
 }
 ```
-
+   
 | Body Params| Type     | Description                              |
 | :----------| :--------| :----------------------------------------|
 | `title`      | `string` | **Required**. Tool title|
 | `link`      | `string` | **Required**. Tool URL, must be a string containing a valid URL format|
 | `description`      | `string` | **Required**. Tool description|
 | `tags`      | `array(strings)` | **Required**. The tags for the tool record. All values inside the array must be strings|
-
-
-
+   
+   
+   
 ### Update tool
 
-```http
+```bash
   PATCH /api/tools/{id}
 ```
-
+  
 | Route Param| Type     | Description                              |
 | :----------| :--------| :----------------------------------------|
 | `id`      | `number` | **Required**. The tool id that you want to update|
-
-
+  
+  
 #### Request body example:
 ```bash
 {
@@ -124,10 +124,11 @@ $ php artisan serve
 | `link`      | `string` | **Optional**. Tool URL, must be a string containing a valid URL format|
 | `description`      | `string` | **Optional**. Tool description|
 | `tags`      | `array(strings)` | **Optional**. The tags for the tool record. All values inside the array must be strings|
-
-
+  
+  
+  
 ### Delete tool
-```http
+```bash
   DELETE /api/tools/{id}
 ```
 
