@@ -24,5 +24,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Tool::factory(30)->create();
+
+        $this->call([
+            UserSeeder::class
+        ]);
     }
 }

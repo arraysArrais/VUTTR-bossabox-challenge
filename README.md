@@ -47,6 +47,29 @@ $ php artisan serve
 
 ## API Documentation
 
+### Authentication
+```bash
+  POST /api/auth
+```
+| Body Params (form-data)| Type     | 
+| :----------| :--------| 
+| `email`      | `string` 
+| `password`      | `string` 
+
+#### Response body example:
+```bash
+{
+    "access-token": "8|Op9o5QmRFcXenwSbP5xefPFGpEP8c4wyLRYHX5Y9"
+}
+```
+#### Authorization header is *required* for all APIs, usage example below:
+```bash
+{
+    'Authorization': 'Bearer 8|Op9o5QmRFcXenwSbP5xefPFGpEP8c4wyLRYHX5Y9'
+}
+```
+
+
 ### List all tools
 ```bash
   GET /api/tools
@@ -141,5 +164,5 @@ $ php artisan serve
 
 
 ## Roadmap
-- [ ]  JWT Auth
+- [x]  JWT Auth
 - [ ]  API Blueprint/Swagger API Documentation
