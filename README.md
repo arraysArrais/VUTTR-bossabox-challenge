@@ -26,7 +26,6 @@ $ cd VUTTR-bossabox-challenge
 
 # Update composer packages and generate autoload:
 $ composer update
-$ composer install
 ```
 
 ## Usage
@@ -55,6 +54,7 @@ $ php artisan serve
 | :----------| :--------| 
 | `email`      | `string` 
 | `password`      | `string` 
+<br/>
 
 #### Response body example:
 ```bash
@@ -68,14 +68,16 @@ $ php artisan serve
     'Authorization': 'Bearer 8|Op9o5QmRFcXenwSbP5xefPFGpEP8c4wyLRYHX5Y9'
 }
 ```
+<br/>
 
+   
+## Routes
 
 ### List all tools
 ```bash
   GET /api/tools
 ```
-   
-   
+<br/>
    
 ### Filter tools by tag
 ```bash
@@ -87,13 +89,15 @@ $ php artisan serve
 | `tag`      | `string` | **Optional**. The tag name that you want to filter|
    
     
-    
+<br/>
+
 ### Create a new tool
 
 ```bash
   POST /api/tools
 ```
-   
+<br/>   
+
 #### Required request headers:
 ```bash
 {
@@ -120,7 +124,8 @@ $ php artisan serve
 | `tags`      | `array(strings)` | **Required**. The tags for the tool record. All values inside the array must be strings|
    
    
-   
+<br/>
+
 ### Update tool
 
 ```bash
@@ -130,7 +135,7 @@ $ php artisan serve
 | Route Param| Type     | Description                              |
 | :----------| :--------| :----------------------------------------|
 | `id`      | `number` | **Required**. The tool id that you want to update|
-  
+<br/>  
   
 #### Request body example:
 ```bash
@@ -148,7 +153,7 @@ $ php artisan serve
 | `description`      | `string` | **Optional**. Tool description|
 | `tags`      | `array(strings)` | **Optional**. The tags for the tool record. All values inside the array must be strings|
   
-  
+<br/>
   
 ### Delete tool
 ```bash
@@ -160,7 +165,7 @@ $ php artisan serve
 | `id`      | `number` | **Required**. The tool id that you want to delete|
 
 
-
+<br/>
 
 
 ## Roadmap
