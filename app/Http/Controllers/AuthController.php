@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     /**
      * @OA\Post(
-     *     path="/api/auth",
+     *     path="/api/auth/",
      *     operationId="login",
      *     tags={"auth"},
      *     summary="get access-token",
@@ -54,75 +54,66 @@ class AuthController extends Controller
      */
     public function login(Request $r){
 
-        $credentials = $r->only(['email', 'password']);
+        //sanctum method
+        // $credentials = $r->only(['email', 'password']);
 
-        if(Auth::attempt($credentials)){
-            $user = User::where('email', $credentials['email'])->first();
+        // if(Auth::attempt($credentials)){
+        //     $user = User::where('email', $credentials['email'])->first();
 
-            $item = time().rand(0,9999);
+        //     $item = time().rand(0,9999);
 
-            $token = $user->createToken($item)->plainTextToken;
+        //     $token = $user->createToken($item)->plainTextToken;
 
-            return response()->json([
-                'access-token'=> $token
-            ], 200);
+        //     return response()->json([
+        //         'access-token'=> $token
+        //     ], 200);
             
-        }
-        else{
+        // }
+        // else{
+        //     return response()->json([
+        //         'error'=> 'Incorrect username or password'
+        //     ], 403);
+        // }
+
+        //jwt-auth
+        $credentials = $r->only(['email', 'password']);
+        $token = Auth::attempt($credentials);
+
+        //custom expiration time (minutes)
+        //$token = auth()->setTTL(2)->attempt($credentials);
+
+        if($token){
             return response()->json([
-                'error'=> 'Incorrect username or password'
-            ], 403);
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60,
+            ], 200);
+        }else{
+            return response()->json([
+                        'error'=> 'Incorrect username or password'
+                    ], 401);
         }
-    }
 
-
-    /**
-     * @OA\Post(
-     *     path="/api/auth/logout",
-     *     security={{"bearerAuth": {}}},
-     *     operationId="logout",
-     *     tags={"auth"},
-     *     summary="revoke access-token",
-     *     @OA\Parameter(
-     *         name="Authorization",
-     *         in="header",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             example="Bearer 1|xyz..."
-     *         ),
-     *         
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful operation",
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Unathenticated", 
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Error while fetching data in database"
-     *     ),
-     *     
-     * 
-     * ),
-     */
-
-    public function logout(Request $r){
         
-        $user = $r->user();
-        $user->tokens()->delete();
 
-        return response()->json([
-            'success'=> 'access-token for user '.$user->name.' revoked'
-        ], 200);
+
     }
 
-    public function unauthorized(){
-        return response()->json([
-            'error'=> 'Unathenticated..'
-        ], 401);
-    }
+//sanctum method
+//     public function logout(Request $r){
+        
+//         $user = $r->user();
+//         $user->tokens()->delete();
+
+//         return response()->json([
+//             'success'=> 'access-token for user '.$user->name.' revoked'
+//         ], 200);
+//     }
+
+//     public function unauthorized(){
+//         return response()->json([
+//             'error'=> 'Unathenticated..'
+//         ], 401);
+//     }
+// }
 }

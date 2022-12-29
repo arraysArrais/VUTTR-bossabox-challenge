@@ -50,7 +50,7 @@ $ php artisan serve
 # Access the URL below to render Swagger UI and interact with the API's resources
 localhost:3000/api/doc/
 ```
-![App Screenshot](https://i.imgur.com/AoAO9X3.jpeg)
+![App Screenshot](https://i.imgur.com/x4FSyAb.jpeg)
 
 
 ## Roadmap

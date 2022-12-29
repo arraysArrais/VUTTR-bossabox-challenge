@@ -13,7 +13,7 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/auth": {
+        "/api/auth/": {
             "post": {
                 "tags": [
                     "auth"
@@ -51,42 +51,6 @@
                         "description": "Error while fetching data in database"
                     }
                 }
-            }
-        },
-        "/api/auth/logout": {
-            "post": {
-                "tags": [
-                    "auth"
-                ],
-                "summary": "revoke access-token",
-                "operationId": "logout",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "Bearer 1|xyz..."
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    },
-                    "401": {
-                        "description": "Unathenticated"
-                    },
-                    "500": {
-                        "description": "Error while fetching data in database"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
             }
         },
         "/api/tools/": {
