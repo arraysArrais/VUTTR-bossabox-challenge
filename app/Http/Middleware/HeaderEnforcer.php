@@ -16,19 +16,24 @@ class HeaderEnforcer
      */
     public function handle(Request $request, Closure $next)
     {
-        $acceptHeader = $request->header('Accept');
+
+        // $acceptHeader = $request->header('Accept');
         // $contentTypeHeader = $request->header('Content-Type');
         
-        if ($acceptHeader != 'application/json') {
-            return response()->json([
-                'error' => "missing or invalid 'Accept' header"
-            ], 400);
-        }
+        // if ($acceptHeader != 'application/json') {
+        //     return response()->json([
+        //         'error' => "missing or invalid 'Accept' header"
+        //     ], 400);
+        // }
         // if ($contentTypeHeader != 'application/json') {
         //     return response()->json([
         //         'error' => "missing or invalid 'Content-Type' header"
         //     ], 400);
         // }
+
+        $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Content-Type', 'application/json');
+        
 
         return $next($request);
     }

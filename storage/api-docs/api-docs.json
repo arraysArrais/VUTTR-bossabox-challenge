@@ -1,0 +1,305 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Tools api",
+        "description": "BossaBox Tools Swagger OpenApi",
+        "contact": {
+            "email": "arraisarrays@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "get access-token",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "admin@bossabox.com"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Boss@Box1!"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "403": {
+                        "description": "Incorrect username or password"
+                    },
+                    "500": {
+                        "description": "Error while fetching data in database"
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "revoke access-token",
+                "operationId": "logout",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer 1|xyz..."
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unathenticated"
+                    },
+                    "500": {
+                        "description": "Error while fetching data in database"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tools/": {
+            "get": {
+                "tags": [
+                    "tools"
+                ],
+                "summary": "return tools",
+                "operationId": "getTools",
+                "parameters": [
+                    {
+                        "name": "tag",
+                        "in": "query",
+                        "description": "filter tools by tag",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unathenticated"
+                    },
+                    "500": {
+                        "description": "Error while fetching data in database"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "tools"
+                ],
+                "summary": "create a tool record on database",
+                "operationId": "createTool",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "My Tool Title"
+                                    },
+                                    "link": {
+                                        "example": "https://mytoolwebsite.com.br"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "A cool description for my tool"
+                                    },
+                                    "tags": {
+                                        "description": "tool tags",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "Tag 1",
+                                            "Tag 2"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unathenticated"
+                    },
+                    "500": {
+                        "description": "Error while fetching data in database"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tools/{id}": {
+            "delete": {
+                "tags": [
+                    "tools"
+                ],
+                "summary": "delete a tool record",
+                "operationId": "deleteTool",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tool id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unathenticated"
+                    },
+                    "404": {
+                        "description": "Tool id not found"
+                    },
+                    "500": {
+                        "description": "Error while fetching data in database"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "tools"
+                ],
+                "summary": "update a tool record",
+                "operationId": "updateTool",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tool id to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "My Tool Title"
+                                    },
+                                    "link": {
+                                        "type": "string",
+                                        "example": "https://mytoolwebsite.com.br"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "A cool description for my tool"
+                                    },
+                                    "tags": {
+                                        "description": "tool tags",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "Tag 1",
+                                            "Tag 2"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unathenticated"
+                    },
+                    "404": {
+                        "description": "Tool id not found"
+                    },
+                    "500": {
+                        "description": "Error while fetching data in database"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
