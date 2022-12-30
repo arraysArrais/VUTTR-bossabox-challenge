@@ -32,7 +32,10 @@ $ composer update
 
 ```bash
 # Use .env.example environment config
+# Linux
 $ mv .env.example .env
+# Windows
+$ ren .env.example .env
 
 # Run migrations to create all database structure needed
 $ php artisan migrate
@@ -47,10 +50,10 @@ $ php artisan serve
 ## API Documentation
 
 ```bash
-# Access the URL below to render Swagger UI and interact with the API's resources
+# Access the URL below in your browser to render Swagger UI and interact with the API's resources
 localhost:3000/api/doc/
 ```
-![App Screenshot](https://i.imgur.com/x4FSyAb.jpeg)
+![App Screenshot](https://i.imgur.com/LfjCqZB.jpeg)
 
 
 ## Roadmap
