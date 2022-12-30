@@ -16,7 +16,6 @@ Route::middleware(['auth:api'/*'headerEnforcer', 'auth:sanctum'*/])->group(funct
 });
 
 //auth routes
-//sanctum route Route::post('/auth', [AuthController::class, 'login']);
 Route::post('/auth', [AuthController::class, 'login']);
 
 

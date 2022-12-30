@@ -9,7 +9,7 @@ use Throwable;
 
 class MainController extends Controller
 {
- /**
+    /**
      * @OA\Get(
      *     path="/api/tools/",
      *     security={{"bearerAuth": {}}},
@@ -49,7 +49,7 @@ class MainController extends Controller
         //verifica se há query params na url para filtrar as tools
         if ($r->exists('tag')) {
             $requestTag = strtolower($r->tag);
-
+   
             try {
                 $tools = Tool::query()->whereJsoncontains('tags', $requestTag)->get();
                 return $tools;
@@ -110,11 +110,19 @@ class MainController extends Controller
     public function createTool(ToolValidateRequest $r)
     {
         try {
+            //tirando espaço dos elementos de tags[] vindos da request
+            $rawTags = $r->tags;
+            foreach ($rawTags as $key => $value) {
+                $strippedTags[] =  str_replace(" ", "", strtolower($value));
+            }
             $tool = new Tool($r->validated());
+            $tool->tags = $strippedTags;
+
 
             if ($tool->save()) {
                 return response()->json([$tool], 201);
             }
+
         } catch (Throwable $e) {
             return response()->json([
                 'error' => 'Error while creating records in the database',
@@ -270,7 +278,8 @@ class MainController extends Controller
         }
     }
 
-    public function teste(Request $r){
+    public function teste(Request $r)
+    {
         return "oie";
     }
 }
