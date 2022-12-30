@@ -10,8 +10,8 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="Tools api",
- *      description="BossaBox Tools Swagger OpenApi",
+ *      title="Tools API",
+ *      description="BossaBox Tools Swagger",
  *      @OA\Contact(
  *          email="arraisarrays@gmail.com"
  *      ),

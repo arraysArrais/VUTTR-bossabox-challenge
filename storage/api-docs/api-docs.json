@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Tools api",
-        "description": "BossaBox Tools Swagger OpenApi",
+        "title": "Tools API",
+        "description": "BossaBox Tools Swagger",
         "contact": {
             "email": "arraisarrays@gmail.com"
         },
@@ -19,6 +19,7 @@
                     "auth"
                 ],
                 "summary": "get access-token",
+                "description": "JWT Token. Required for all requests.",
                 "operationId": "login",
                 "parameters": [
                     {
@@ -42,7 +43,28 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access-token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "integer",
+                                            "example": "3600"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
                         "description": "Incorrect username or password"
@@ -92,7 +114,7 @@
                 "tags": [
                     "tools"
                 ],
-                "summary": "create a tool record on database",
+                "summary": "create a tool record in the database",
                 "operationId": "createTool",
                 "requestBody": {
                     "required": true,
@@ -118,8 +140,8 @@
                                             "type": "string"
                                         },
                                         "example": [
-                                            "Tag 1",
-                                            "Tag 2"
+                                            "gardening",
+                                            "woodworking"
                                         ]
                                     }
                                 },
@@ -130,10 +152,49 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "example": "My Tool Title"
+                                        },
+                                        "link": {
+                                            "type": "string",
+                                            "example": "https://mytoolwebsite.com.br"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "A cool description for my tool"
+                                        },
+                                        "tags": {
+                                            "description": "tool tags",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "gardening",
+                                                "woodworking"
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "50"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "Unathenticated"
+                    },
+                    "422": {
+                        "description": "Invalid data"
                     },
                     "500": {
                         "description": "Error while fetching data in database"
@@ -226,8 +287,8 @@
                                             "type": "string"
                                         },
                                         "example": [
-                                            "Tag 1",
-                                            "Tag 2"
+                                            "gardening",
+                                            "woodworking"
                                         ]
                                     }
                                 },
@@ -238,13 +299,52 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "40"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "My Tool Title updated!"
+                                        },
+                                        "link": {
+                                            "type": "string",
+                                            "example": "https://mynewtoolwebsite.com.br"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "A really cool description for my tool"
+                                        },
+                                        "tags": {
+                                            "description": "tool tags",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "automotive",
+                                                "plumbing"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "Unathenticated"
                     },
                     "404": {
                         "description": "Tool id not found"
+                    },
+                    "422": {
+                        "description": "Invalid data"
                     },
                     "500": {
                         "description": "Error while fetching data in database"

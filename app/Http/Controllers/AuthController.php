@@ -16,6 +16,7 @@ class AuthController extends Controller
      *     operationId="login",
      *     tags={"auth"},
      *     summary="get access-token",
+     *     description="JWT Token. Required for all requests.",
      *     @OA\Parameter(
      *         name="email",
      *         in="query",
@@ -39,6 +40,12 @@ class AuthController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
+     *         @OA\JsonContent(
+     *         type="object",
+     *          @OA\Property(property="access-token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."),
+     *          @OA\Property(property="token_type", type="string", example="bearer"),
+     *          @OA\Property(property="expires_in", type="int", example="3600"),
+     *       ),
      *     ),
      *     @OA\Response(
      *         response=403,
@@ -48,6 +55,7 @@ class AuthController extends Controller
      *         response=500,
      *         description="Error while fetching data in database"
      *     ),
+     * 
      *     
      * 
      * ),
