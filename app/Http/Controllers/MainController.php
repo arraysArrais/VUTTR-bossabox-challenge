@@ -277,9 +277,4 @@ class MainController extends Controller
             ], 500);
         }
     }
-
-    public function teste(Request $r)
-    {
-        return "oie";
-    }
 }
