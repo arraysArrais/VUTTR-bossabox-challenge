@@ -43,6 +43,16 @@ class MainController extends Controller
      * 
      * @return ToolCollection
      */
+
+    //retirando espaços das tags vindas da request e transformando em lower case 
+    public function stripTags($rawTags){
+        foreach ($rawTags as $key => $value) {
+            $strippedTags[] =  str_replace(" ", "", mb_strtolower($value, 'UTF-8'));
+        }
+        return $strippedTags;
+    }
+
+
     public function getTools(Request $r)
     {
 
@@ -53,7 +63,8 @@ class MainController extends Controller
             try {
                 $tools = Tool::query()->whereJsoncontains('tags', $requestTag)->get();
                 return $tools;
-            } catch (Throwable $e) {
+            } 
+            catch (Throwable $e) {
                 return response()->json([
                     'error' => 'Error while fetching data in database',
                     'message' => $e->getMessage()
@@ -65,7 +76,8 @@ class MainController extends Controller
         try {
             $tools = Tool::all();
             return $tools;
-        } catch (Throwable $e) {
+        } 
+        catch (Throwable $e) {
             return response()->json([
                 'error' => 'Error while fetching data in database',
                 'message' => $e->getMessage()
@@ -88,7 +100,7 @@ class MainController extends Controller
      *      @OA\Property(property="title", type="string", example="My Tool Title"),
      *      @OA\Property(property="link", example="https://mytoolwebsite.com.br"),
      *      @OA\Property(property="description", type="string", example="A cool description for my tool"),
-     *      @OA\Property(property="tags", description="tool tags", type="array", example={"Tag 1","Tag 2"}, @OA\Items(type="string")),
+     *      @OA\Property(property="tags", description="tool tags", type="array", example={"gardening","woodworking"}, @OA\Items(type="string")),
      *   ),
      * ),
      *     @OA\Response(
@@ -107,23 +119,21 @@ class MainController extends Controller
      * 
      * ),
      */
+
+     
     public function createTool(ToolValidateRequest $r)
     {
         try {
-            //tirando espaço dos elementos de tags[] vindos da request
-            $rawTags = $r->tags;
-            foreach ($rawTags as $key => $value) {
-                $strippedTags[] =  str_replace(" ", "", strtolower($value));
-            }
             $tool = new Tool($r->validated());
-            $tool->tags = $strippedTags;
+            $tool->tags = $this->stripTags($tool->tags);
 
 
             if ($tool->save()) {
                 return response()->json([$tool], 201);
             }
 
-        } catch (Throwable $e) {
+        } 
+        catch (Throwable $e) {
             return response()->json([
                 'error' => 'Error while creating records in the database',
                 'message' => $e->getMessage()
@@ -183,7 +193,8 @@ class MainController extends Controller
             return response()->json([
                 'success' => 'Tool id: ' . $r->id . ' deleted'
             ], 200);
-        } catch (Throwable $e) {
+        } 
+        catch (Throwable $e) {
             return response()->json([
                 'error' => 'Error while deleting records in the database',
                 'message' => $e->getMessage()
@@ -216,7 +227,7 @@ class MainController extends Controller
      *      @OA\Property(property="title", type="string", example="My Tool Title"),
      *      @OA\Property(property="link", type="string", example="https://mytoolwebsite.com.br"),
      *      @OA\Property(property="description", type="string", example="A cool description for my tool"),
-     *      @OA\Property(property="tags", description="tool tags", type="array", example={"Tag 1","Tag 2"}, @OA\Items(type="string")),
+     *      @OA\Property(property="tags", description="tool tags", type="array", example={"gardening","woodworking"}, @OA\Items(type="string")),
      *   ),
      * ),
      *     @OA\Response(
@@ -237,7 +248,7 @@ class MainController extends Controller
      *     ),
      * )
      */
-    public function updateTool(Request $r)
+    public function updateTool(ToolValidateRequest $r)
     {
 
         try {
@@ -266,7 +277,7 @@ class MainController extends Controller
             $tool->title = $r->title;
             $tool->link = $r->link;
             $tool->description = $r->description;
-            $tool->tags = $r->tags;
+            $tool->tags = $this->stripTags($r->tags);
             $tool->save();
 
             return response()->json([$tool], 200);
