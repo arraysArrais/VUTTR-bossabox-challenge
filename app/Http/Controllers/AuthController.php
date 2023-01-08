@@ -118,10 +118,10 @@ class AuthController extends Controller
 //         ], 200);
 //     }
 
-//     public function unauthorized(){
-//         return response()->json([
-//             'error'=> 'Unathenticated..'
-//         ], 401);
-//     }
+    public function unauthorized(){
+        return response()->json([
+            'error'=> 'Unathenticated..'
+        ], 401);
+    }
 // }
 }

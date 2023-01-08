@@ -8,7 +8,10 @@
 ## About
 This is my response to BossaBox Backend [Challenge](https://www.notion.so/Back-end-0b2c45f1a00e4a849eefe3b1d57f23c6)
 
-This application was developed using **PHP**, **Laravel Framework** and a **MySQL** database to persist data.
+## Technologies used 
+<br>![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white) 
+![LARAVEL](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white) 
+![MYSQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
 
 ## Requirements
 - PHP 8.1+
